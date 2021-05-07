@@ -7,6 +7,7 @@ Created on Sat May  1 23:12:34 2021
 
 from urllib.request import urlopen  # b_soup_1.py
 from bs4 import BeautifulSoup
+import re
 
 html = urlopen('https://www.treasury.gov/resource-center/'
                'data-chart-center/interest-rates/Pages/'
@@ -47,6 +48,12 @@ allrows = tc_table.findAll('tr', limit=10)
 
 for row in allrows:
     daily_yield_curves.append([])
+    delete_headers = row.findAll('th', text="2 mo")
+    delete_empty = row.findAll('td', text="\n\t\t\tN/A\n\t\t")
+    for match in delete_headers:
+        match.decompose()
+    for match in delete_empty:
+        match.decompose()
     allcols = row.findAll('th') + row.findAll('td')
     for col in allcols:
         daily_yield_curves[-1].append(col.text)
