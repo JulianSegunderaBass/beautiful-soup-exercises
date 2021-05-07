@@ -63,14 +63,21 @@ for row in allrows:
         except:
             daily_yield_curves[-1].append(col.text)
         
-for row in daily_yield_curves:
-    print(row)
+#for row in daily_yield_curves:
+#    print(row)
 
 # ------ For matplotlib plotting ------
 
 interest_rates_np = np.array(daily_yield_curves)
-print(interest_rates_np)
-#plt.plot(interest_rates_np)
+
+interest_rates_np[0] = ['Date', 1, 3, 6, 12, 24, 36, 60, 84, 120, 240, 360]
+sliced_rates = interest_rates_np[:, 1:]
+sliced_rates = sliced_rates.astype(float)
+sliced_rates[0] = sliced_rates[0].astype(int)
+
+print(pd.DataFrame(sliced_rates))
+
+#plt.plot(sliced_rates)
 #plt.show()
 
 # ------ Saving to File ------
