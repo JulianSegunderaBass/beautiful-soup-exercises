@@ -9,7 +9,10 @@ from urllib.request import urlopen  # b_soup_1.py
 from bs4 import BeautifulSoup
 import pandas as pd
 import numpy as np
+import matplotlib as mpl
 import matplotlib.pyplot as plt
+#from mpl_toolkits import mplot3d
+from mpl_toolkits.mplot3d import Axes3D
 
 html = urlopen('https://www.treasury.gov/resource-center/'
                'data-chart-center/interest-rates/Pages/'
@@ -71,14 +74,25 @@ for row in allrows:
 interest_rates_np = np.array(daily_yield_curves)
 
 interest_rates_np[0] = ['Date', 1, 3, 6, 12, 24, 36, 60, 84, 120, 240, 360]
-sliced_rates = interest_rates_np[:, 1:]
-sliced_rates = sliced_rates.astype(float)
-sliced_rates[0] = sliced_rates[0].astype(int)
 
-print(pd.DataFrame(sliced_rates))
+print(pd.DataFrame(interest_rates_np))
 
-#plt.plot(sliced_rates)
+print(interest_rates_np.dtype)
+
+#ax = plt.axes(projection="3d")
+#x = np.linspace(interest_rates_np[1:, :1])
+#y = np.linspace(interest_rates_np[:1, 1:])
+#z = np.linspace(interest_rates_np[1:, 1:])
+#ax.plot3D(x, y, z)
 #plt.show()
+
+x = interest_rates_np[1:, :1]
+y = interest_rates_np[:1, 1:]
+z = interest_rates_np[1:, 1:].astype(float)
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection="3d")
+ax.scatter(x,y,z)
 
 # ------ Saving to File ------
 
