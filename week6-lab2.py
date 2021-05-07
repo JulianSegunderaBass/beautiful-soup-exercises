@@ -56,7 +56,10 @@ for row in allrows:
         match.decompose()
     allcols = row.findAll('th') + row.findAll('td')
     for col in allcols:
-        daily_yield_curves[-1].append(col.text)
+        try:
+            daily_yield_curves[-1].append(float(col.text))
+        except:
+            daily_yield_curves[-1].append(col.text)
         
 for row in daily_yield_curves:
     print(row)
@@ -68,7 +71,7 @@ output_file = open('scraped_table.txt', 'wt',
 		encoding='utf-8')
 
 # Saving tc table to output file  
-output_file.write(str(tc_table))    
+output_file.write(str(daily_yield_curves))    
 output_file.close()
 
 # print(tc_table.prettify())
