@@ -7,7 +7,7 @@ Created on Sat May  1 23:12:34 2021
 
 from urllib.request import urlopen  # b_soup_1.py
 from bs4 import BeautifulSoup
-import re
+import pandas as pd
 
 html = urlopen('https://www.treasury.gov/resource-center/'
                'data-chart-center/interest-rates/Pages/'
@@ -66,12 +66,14 @@ for row in daily_yield_curves:
 
 # ------ Saving to File ------
 
+df_list = pd.DataFrame(daily_yield_curves)
+
 # Creating an output file
 output_file = open('scraped_table.txt', 'wt',
 		encoding='utf-8')
 
 # Saving tc table to output file  
-output_file.write(str(daily_yield_curves))    
+output_file.write(str(df_list))    
 output_file.close()
 
 # print(tc_table.prettify())
