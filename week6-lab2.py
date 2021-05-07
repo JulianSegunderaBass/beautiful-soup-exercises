@@ -8,6 +8,8 @@ Created on Sat May  1 23:12:34 2021
 from urllib.request import urlopen  # b_soup_1.py
 from bs4 import BeautifulSoup
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
 html = urlopen('https://www.treasury.gov/resource-center/'
                'data-chart-center/interest-rates/Pages/'
@@ -63,6 +65,13 @@ for row in allrows:
         
 for row in daily_yield_curves:
     print(row)
+
+# ------ For matplotlib plotting ------
+
+interest_rates_np = np.array(daily_yield_curves)
+print(interest_rates_np)
+#plt.plot(interest_rates_np)
+#plt.show()
 
 # ------ Saving to File ------
 
