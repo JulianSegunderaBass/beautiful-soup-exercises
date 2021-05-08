@@ -9,7 +9,7 @@ from urllib.request import urlopen  # b_soup_1.py
 from bs4 import BeautifulSoup
 import pandas as pd
 import numpy as np
-#import matplotlib as mpl
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.ticker import LinearLocator
@@ -83,25 +83,40 @@ print(interest_rates_np.dtype)
 
 # days since 01/02/18
 #x = interest_rates_np[1:, :1]
-
 # months of maturity
 #y = interest_rates_np[:1, 1:]
-
 # rates
 #z = interest_rates_np[1:, 1:].astype(float)
 
-x = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9]).astype(float)
-y = interest_rates_np[:1, 1:].astype(float)
-z = interest_rates_np[1:, 1:].astype(float)
+#x = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9]).astype(float)
+#y = interest_rates_np[:1, 1:].astype(float)
+#z = interest_rates_np[1:, 1:].astype(float)
 
-print(x)
-print(y)
-print(z)
+x = np.array([ [ 0, .25, .5, .75, 1 ],
+               [ 0, .25, .5, .75, 1 ],
+               [ 0, .25, .5, .75, 1 ] ])
+
+y = np.array([ [  0,  0,  0,  0,  0 ],
+               [ .5, .5, .5, .5, .5 ],
+               [  1,  1,  1,  1,  1 ] ])
+
+z = np.array([ [ .4, .2, .1, .1, .2 ],
+               [ .3, .5, .2, .3, .4 ],
+               [ .7, .6, .7, .9, .8 ] ])
+
+
+
+#print(x)
+#print(y)
+#print(z)
 
 # Method 1
-#ax = plt.axes(projection="3d")
-#ax.plot3D(x, y, z)
-#plt.show()
+fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+r = np.sqrt(x**2 + y**2)
+
+# Plot the surface.
+surf = ax.plot_surface(x, y, z, cmap=cm.coolwarm,
+                       linewidth=0, antialiased=False)
 
 # Method 2
 #fig = plt.figure()
@@ -109,17 +124,17 @@ print(z)
 #ax.scatter(x,y,z)
 
 # Method 3
-f = lambda x, y: np.sin(x) * np.cos(y)
-X, Y = np.meshgrid(x, y)
-F = f(X, Y)
+#f = lambda x, y: np.sin(x) * np.cos(y)
+#X, Y = np.meshgrid(x, y)
+#F = f(X, Y)
 
-fig = plt.figure(figsize = [12,8])
-ax = fig.gca(projection = '3d')
-ax.plot_surface(X, Y, F)
+#fig = plt.figure(figsize = [12,8])
+#ax = fig.gca(projection = '3d')
+#ax.plot_surface(X, Y, F, cmap = cm.coolwarm)
 
-ax.set_xlabel('trading days since 01/02/18')
-ax.set_ylabel('months to maturity')
-ax.set_zlabel('rate')
+#ax.set_xlabel('trading days since 01/02/18')
+#ax.set_ylabel('months to maturity')
+#ax.set_zlabel('rate')
 
 
 # ------ Saving to File ------
