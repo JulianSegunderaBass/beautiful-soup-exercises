@@ -9,9 +9,11 @@ from urllib.request import urlopen  # b_soup_1.py
 from bs4 import BeautifulSoup
 import pandas as pd
 import numpy as np
-import matplotlib as mpl
+#import matplotlib as mpl
 import matplotlib.pyplot as plt
-#from mpl_toolkits import mplot3d
+from matplotlib import cm
+from matplotlib.ticker import LinearLocator
+from mpl_toolkits import mplot3d
 from mpl_toolkits.mplot3d import Axes3D
 
 html = urlopen('https://www.treasury.gov/resource-center/'
@@ -79,20 +81,46 @@ print(pd.DataFrame(interest_rates_np))
 
 print(interest_rates_np.dtype)
 
+# days since 01/02/18
+#x = interest_rates_np[1:, :1]
+
+# months of maturity
+#y = interest_rates_np[:1, 1:]
+
+# rates
+#z = interest_rates_np[1:, 1:].astype(float)
+
+x = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9]).astype(float)
+y = interest_rates_np[:1, 1:].astype(float)
+z = interest_rates_np[1:, 1:].astype(float)
+
+print(x)
+print(y)
+print(z)
+
+# Method 1
 #ax = plt.axes(projection="3d")
-#x = np.linspace(interest_rates_np[1:, :1])
-#y = np.linspace(interest_rates_np[:1, 1:])
-#z = np.linspace(interest_rates_np[1:, 1:])
 #ax.plot3D(x, y, z)
 #plt.show()
 
-x = interest_rates_np[1:, :1]
-y = interest_rates_np[:1, 1:]
-z = interest_rates_np[1:, 1:].astype(float)
+# Method 2
+#fig = plt.figure()
+#ax = fig.add_subplot(111, projection="3d")
+#ax.scatter(x,y,z)
 
-fig = plt.figure()
-ax = fig.add_subplot(111, projection="3d")
-ax.scatter(x,y,z)
+# Method 3
+f = lambda x, y: np.sin(x) * np.cos(y)
+X, Y = np.meshgrid(x, y)
+F = f(X, Y)
+
+fig = plt.figure(figsize = [12,8])
+ax = fig.gca(projection = '3d')
+ax.plot_surface(X, Y, F)
+
+ax.set_xlabel('trading days since 01/02/18')
+ax.set_ylabel('months to maturity')
+ax.set_zlabel('rate')
+
 
 # ------ Saving to File ------
 
