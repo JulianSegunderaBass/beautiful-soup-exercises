@@ -104,26 +104,22 @@ z = np.array([ [ .4, .2, .1, .1, .2 ],
                [ .3, .5, .2, .3, .4 ],
                [ .7, .6, .7, .9, .8 ] ])
 
-
-
-#print(x)
-#print(y)
-#print(z)
+print(x)
+print()
+print(y)
+print()
+print(z)
 
 # Method 1
-fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
-r = np.sqrt(x**2 + y**2)
+fig = plt.figure(figsize = [12,8])
+ax = fig.gca(projection = '3d')
 
 # Plot the surface.
 surf = ax.plot_surface(x, y, z, cmap=cm.coolwarm,
                        linewidth=0, antialiased=False)
 
-# Method 2
-#fig = plt.figure()
-#ax = fig.add_subplot(111, projection="3d")
-#ax.scatter(x,y,z)
 
-# Method 3
+# Method 2
 #f = lambda x, y: np.sin(x) * np.cos(y)
 #X, Y = np.meshgrid(x, y)
 #F = f(X, Y)
