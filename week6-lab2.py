@@ -38,7 +38,7 @@ tc_table = tc_table_list[0]
 daily_yield_curves = []
 
 # Finding all row tags inside the table + limiting to first 15 rows
-allrows = tc_table.findAll('tr', limit=15)
+allrows = tc_table.findAll('tr', limit=150)
 
 # Iterating through each row
 for row in allrows:
@@ -123,6 +123,7 @@ print("Interest Rates: ")
 print(pd.DataFrame(z), "\n")
 
 # Plot display settings
+# Reference: https://matplotlib.org/stable/gallery/mplot3d/surface3d.html
 fig = plt.figure(figsize = [12,8])
 ax = fig.gca(projection = '3d')
 
