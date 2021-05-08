@@ -29,22 +29,6 @@ tc_table_list = bsyc.findAll('table',
 # only 1 t-chart table, so grab it
 tc_table = tc_table_list[0]
 
-# what are this table's components/children?
-#for c in tc_table.children:
-#    print(str(c)[:50])
-
-# tag tr means table row, containing table data
-# what are the children of those rows?
-#for c in tc_table.children:
-#    for r in c.children:
-#        print(str(r)[:50])
-
-# we have found the table data!
-# just get the contents of each cell
-#for c in tc_table.children:
-#    for r in c.children:
-#        print(r.contents)
-
 # ------ My Code ------
 
 # Reference: https://stackoverflow.com/questions/2870667/how-to-convert-an-html-table-to-an-array-in-python
@@ -88,27 +72,16 @@ print(interest_rates_np.dtype)
 # rates
 #z = interest_rates_np[1:, 1:].astype(float)
 
-#x = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9]).astype(float)
-#y = interest_rates_np[:1, 1:].astype(float)
-#z = interest_rates_np[1:, 1:].astype(float)
+x = np.array([[1], [2], [3], [4], [5], [6], [7], [8], [9]])
+y = np.array(interest_rates_np[:1, 1:].astype(int))
+z = np.array(interest_rates_np[1:, 1:].astype(float))
 
-x = np.array([ [ 0, .25, .5, .75, 1 ],
-               [ 0, .25, .5, .75, 1 ],
-               [ 0, .25, .5, .75, 1 ] ])
-
-y = np.array([ [  0,  0,  0,  0,  0 ],
-               [ .5, .5, .5, .5, .5 ],
-               [  1,  1,  1,  1,  1 ] ])
-
-z = np.array([ [ .4, .2, .1, .1, .2 ],
-               [ .3, .5, .2, .3, .4 ],
-               [ .7, .6, .7, .9, .8 ] ])
-
-print(x)
-print()
-print(y)
-print()
-print(z)
+print("Days since 01/02/18: ")
+print(pd.DataFrame(x), "\n")
+print("Months of Maturity: ")
+print(pd.DataFrame(y), "\n")
+print("Interest Rates: ")
+print(pd.DataFrame(z), "\n")
 
 # Method 1
 fig = plt.figure(figsize = [12,8])
@@ -118,6 +91,9 @@ ax = fig.gca(projection = '3d')
 surf = ax.plot_surface(x, y, z, cmap=cm.coolwarm,
                        linewidth=0, antialiased=False)
 
+ax.set_xlabel('Trading days since 01/02/18')
+ax.set_ylabel('Months to maturity')
+ax.set_zlabel('Rate')
 
 # Method 2
 #f = lambda x, y: np.sin(x) * np.cos(y)
