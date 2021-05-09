@@ -38,7 +38,7 @@ tc_table = tc_table_list[0]
 daily_yield_curves = []
 
 # Finding all row tags inside the table + limiting to first 15 rows
-allrows = tc_table.findAll('tr', limit=150)
+allrows = tc_table.findAll('tr', limit=10)
 
 # Iterating through each row
 for row in allrows:
@@ -128,8 +128,11 @@ fig = plt.figure(figsize = [12,8])
 ax = fig.gca(projection = '3d')
 
 # Plotting axes
+# Surface and wireframe are combined
 surf = ax.plot_surface(x, y, z, cmap=cm.coolwarm,
                        linewidth=0, antialiased=False)
+
+wire = ax.plot_wireframe(x, y, z, color='black')
 
 # Setting labels
 ax.set_xlabel('Trading days since 01/02/18')
