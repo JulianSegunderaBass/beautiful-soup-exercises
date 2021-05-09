@@ -38,7 +38,7 @@ tc_table = tc_table_list[0]
 daily_yield_curves = []
 
 # Finding all row tags inside the table + limiting to first 15 rows
-allrows = tc_table.findAll('tr', limit=10)
+allrows = tc_table.findAll('tr', limit=150)
 
 # Iterating through each row
 for row in allrows:
@@ -72,7 +72,7 @@ for row in allrows:
 df_list = pd.DataFrame(daily_yield_curves)
 
 # Creating an output file
-output_file = open('scraped_table.txt', 'wt',
+output_file = open('daily_yield_curves.txt', 'wt',
 		encoding='utf-8')
 
 # Saving tc table to output file  
